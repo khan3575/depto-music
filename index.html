@@ -12,12 +12,18 @@
 <meta property="og:type" content="website">
 <style>
 html, body { margin: 0; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: clip; }
 /* Layout: dark-blue single column; glowing split hero, a moving ticker, six-string dividers that vibrate when they scroll into view; brass is reserved for actions and highlights. */
 :root {
   --ground: #070f1e;
   --ground-2: #0c1a33;
   --panel: rgba(20, 38, 68, .55);
   --panel-solid: #12223f;
+  --glass-fill: rgba(255, 255, 255, .035);
+  --glass-hi-fill: rgba(255, 255, 255, .10);
+  --glass-edge: rgba(255, 255, 255, .14);
+  --glass-shine: rgba(255, 255, 255, .16);
+  --frost: blur(18px) saturate(160%);
   --rule: rgba(120, 160, 220, .18);
   --text: #eef3fb;
   --muted: #9cb0d0;
@@ -208,12 +214,56 @@ section { display: grid; gap: 28px; scroll-margin-top: 80px; }
 
 footer { padding-block: 56px 0; color: var(--muted); font-size: .85rem; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 
+/* ===== Glass layer =====
+   Soft colour blobs drift behind the page; panels are frosted glass on top of them:
+   translucent fill with a light sheen, a thin bright edge, and a blur of whatever is behind. */
+html::after {
+  content: ""; position: fixed; inset: -20%; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(28% 22% at 18% 22%, rgba(63, 125, 255, .40), transparent 70%),
+    radial-gradient(24% 20% at 82% 38%, rgba(47, 211, 208, .26), transparent 70%),
+    radial-gradient(26% 22% at 30% 72%, rgba(122, 92, 255, .30), transparent 70%),
+    radial-gradient(20% 16% at 78% 84%, rgba(226, 173, 79, .20), transparent 70%);
+  animation: drift 40s ease-in-out infinite alternate;
+}
+@keyframes drift { to { transform: translate3d(4%, -5%, 0) rotate(8deg); } }
+
+.nav, .card, .video, .contact, .badge, .about-text {
+  background: linear-gradient(135deg, var(--glass-hi-fill), var(--glass-fill));
+  border: 1px solid var(--glass-edge);
+  box-shadow: inset 0 1px 0 var(--glass-shine), 0 24px 48px -24px rgba(0, 0, 0, .65);
+  backdrop-filter: var(--frost); -webkit-backdrop-filter: var(--frost);
+}
+.contact { background: linear-gradient(135deg, rgba(63, 125, 255, .20), rgba(255, 255, 255, .04) 60%); }
+.about-text { padding: clamp(20px, 4vw, 32px); border-radius: 22px; }
+/* These float over photos, so a darker tint keeps their text readable */
+.nav, .badge { background: linear-gradient(135deg, rgba(255, 255, 255, .09), rgba(10, 22, 44, .5)); }
+.video.empty { background: linear-gradient(135deg, var(--glass-hi-fill), var(--glass-fill)); }
+.card:hover { border-color: rgba(160, 200, 255, .38); box-shadow: inset 0 1px 0 var(--glass-shine), 0 28px 56px -24px rgba(63, 125, 255, .5); }
+.ticker { background: rgba(255, 255, 255, .03); border-color: var(--glass-edge); }
+.btn.ghost { background: rgba(255, 255, 255, .05); border-color: rgba(226, 173, 79, .55); box-shadow: inset 0 1px 0 var(--glass-shine); }
+.btn.ghost:hover { background: rgba(226, 173, 79, .12); }
+.btn:not(.ghost) { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .45); }
+.todo { background: rgba(255, 255, 255, .04); border-color: rgba(156, 176, 208, .45); }
+.gallery figure { border: 1px solid var(--glass-edge); }
+/* Browsers without blur support: make panels more solid so text stays readable */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nav, .card, .video, .contact, .badge, .about-text, .bar { background: rgba(14, 28, 52, .92); }
+}
+
 .bar { display: none; }
 @media (max-width: 760px) {
   .nav ul { display: none; }
   .hero, .about, .teach { grid-template-columns: minmax(0, 1fr); }
-  .hero { gap: 36px; padding-block: 36px 24px; }
-  .badge { right: 8px; }
+  .hero { gap: 28px; padding-block: 28px 24px; }
+  /* Phones: a shorter photo so the name and buttons fit on the first screen; the glow stays inside the side gutter. */
+  .hero-photo::before { inset: -4%; }
+  .hero-photo .frame { aspect-ratio: 4 / 3; transform: rotate(-1.5deg); }
+  .hero-photo img { object-position: 50% 25%; }
+  .badge { right: 8px; bottom: 14px; }
+  .nav { padding: 8px 8px 8px 18px; }
+  .nav .btn { min-height: 44px; }
+  .contact dd a, footer a { display: inline-block; padding-block: 10px; margin-block: -10px; }
   .videos { grid-template-columns: minmax(0, 1fr); }
   .gallery { grid-template-columns: 1fr 1fr; }
   .gallery .tall { grid-row: auto; grid-column: span 2; aspect-ratio: 4 / 5; }
@@ -222,10 +272,26 @@ footer { padding-block: 56px 0; color: var(--muted); font-size: .85rem; display:
   .bar {
     display: flex; gap: 10px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
     padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
-    background: rgba(10, 22, 44, .8); border-top: 1px solid var(--rule);
-    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    background: rgba(10, 22, 44, .45); border-top: 1px solid var(--glass-edge);
+    box-shadow: inset 0 1px 0 var(--glass-shine);
+    backdrop-filter: var(--frost); -webkit-backdrop-filter: var(--frost);
   }
-  .bar .btn { flex: 1; justify-content: center; }
+  .bar .btn { flex: 1; justify-content: center; min-height: 48px; }
+}
+/* Small phones (iPhone SE 1st gen, older Androids) */
+@media (max-width: 380px) {
+  .nav { gap: 8px; padding-left: 14px; }
+  .brand { font-size: .95rem; }
+  .nav .btn { padding: 8px 12px; font-size: .85rem; }
+  .hero h1 { font-size: 2.4rem; }
+  .btn { padding: 12px 18px; }
+}
+/* Phones turned sideways: short screens, so trim the hero */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero { padding-block: 24px; gap: 32px; }
+  .hero-photo { max-width: 260px; justify-self: center; }
+  .hero h1 { font-size: 3rem; }
+  .hero-text { gap: 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -351,6 +417,7 @@ const SITE = {
   phone: "",      // e.g. "+8801XXXXXXXXX"
   whatsapp: "",   // digits only, e.g. "8801XXXXXXXXX"
   email: "",
+  facebook: "https://www.facebook.com/rysulislam.depto21/",
   waText: "I saw your poster and want to take music lessons.",
   videos: [],     // YouTube video IDs, e.g. ["dQw4w9WgXcQ", "abc123def45"]
 };
@@ -358,25 +425,31 @@ const SITE = {
 
 const icon = {
   call: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>',
+  fb: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>',
   wa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>',
 };
 
-function contactButtons() {
+function contactButtons(inBar) {
   const call = SITE.phone
     ? `<a class="btn" href="tel:${SITE.phone}">${icon.call}Call</a>`
     : `<span class="btn" aria-disabled="true">${icon.call}Call</span>`;
   const wa = SITE.whatsapp
     ? `<a class="btn ghost" href="https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(SITE.waText)}" target="_blank" rel="noopener">${icon.wa}WhatsApp</a>`
     : `<span class="btn ghost" aria-disabled="true">${icon.wa}WhatsApp</span>`;
-  return call + wa;
+  // Facebook goes in the contact section only; the phone bar keeps two buttons.
+  const fb = SITE.facebook && !inBar
+    ? `<a class="btn ghost" href="${SITE.facebook}" target="_blank" rel="noopener">${icon.fb}Facebook</a>`
+    : "";
+  return call + wa + fb;
 }
-document.querySelectorAll("[data-contact]").forEach(el => { el.innerHTML = contactButtons(); });
+document.querySelectorAll("[data-contact]").forEach(el => { el.innerHTML = contactButtons(el.classList.contains("bar")); });
 
 const pending = '<span class="todo">Coming soon</span>';
 document.querySelector("[data-details]").innerHTML =
   `<dt>Phone</dt><dd>${SITE.phone || pending}</dd>` +
   `<dt>WhatsApp</dt><dd>${SITE.whatsapp ? "+" + SITE.whatsapp : pending}</dd>` +
-  `<dt>Email</dt><dd>${SITE.email ? `<a href="mailto:${SITE.email}">${SITE.email}</a>` : pending}</dd>`;
+  `<dt>Email</dt><dd>${SITE.email ? `<a href="mailto:${SITE.email}">${SITE.email}</a>` : pending}</dd>` +
+  `<dt>Facebook</dt><dd>${SITE.facebook ? `<a href="${SITE.facebook}" target="_blank" rel="noopener">rysulislam.depto21</a>` : pending}</dd>`;
 
 // Videos: show only the thumbnail; the YouTube player loads after a tap.
 const vbox = document.querySelector("[data-videos]");
