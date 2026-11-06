@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2248%22 fill=%22%23e2ad4f%22/%3E%3C/svg%3E">
+<title>Rysul Islam Depto</title>
+<meta name="description" content="Guitar and harmonium lessons with Rysul Islam Depto. Watch his playing and get in touch.">
+<meta property="og:title" content="Rysul Islam Depto — Guitar & Harmonium Lessons">
+<meta property="og:description" content="Guitar and harmonium lessons. Watch his playing and get in touch.">
+<meta property="og:image" content="img/og-cover.jpg">
+<meta property="og:type" content="website">
+<style>
+html, body { margin: 0; }
+/* Layout: dark-blue single column; glowing split hero, a moving ticker, six-string dividers that vibrate when they scroll into view; brass is reserved for actions and highlights. */
+:root {
+  --ground: #070f1e;
+  --ground-2: #0c1a33;
+  --panel: rgba(20, 38, 68, .55);
+  --panel-solid: #12223f;
+  --rule: rgba(120, 160, 220, .18);
+  --text: #eef3fb;
+  --muted: #9cb0d0;
+  --blue: #3f7dff;
+  --cyan: #2fd3d0;
+  --brass: #e2ad4f;
+  --brass-ink: #1a1206;
+  --display: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --body: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Bengali", "Noto Sans", sans-serif;
+  --step-0: 1rem; --step-1: 1.25rem; --step-2: clamp(1.7rem, 4vw, 2.3rem); --step-3: clamp(2.8rem, 9vw, 5.2rem);
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background:
+    radial-gradient(1100px 600px at 85% -10%, rgba(63, 125, 255, .22), transparent 60%),
+    radial-gradient(800px 500px at -10% 30%, rgba(47, 211, 208, .10), transparent 60%),
+    var(--ground);
+  color: var(--text); font-family: var(--body); font-size: var(--step-0); line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 96px;
+  overflow-x: hidden;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--ground); }
+.wrap { max-width: 1080px; margin-inline: auto; }
+h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.1; text-wrap: balance; margin: 0; }
+h2 { font-size: var(--step-2); }
+h3 { font-size: var(--step-1); }
+p { margin: 0; max-width: 62ch; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: var(--brass); }
+.eyebrow { font-size: .78rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 10px; }
+section { display: grid; gap: 28px; scroll-margin-top: 80px; }
+.sec-head { display: grid; gap: 8px; }
+
+/* Sticky glass menu */
+.nav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 25; margin-inline: auto; max-width: 1080px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 12px 18px; margin-top: 14px; border-radius: 999px;
+  background: rgba(10, 22, 44, .6); border: 1px solid var(--rule);
+  backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+.brand { font-family: var(--display); font-weight: 600; font-size: 1.05rem; color: var(--text); text-decoration: none; white-space: nowrap; }
+.brand b { color: var(--brass); font-weight: 600; }
+.nav ul { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; }
+.nav ul a { color: var(--muted); text-decoration: none; font-size: .92rem; transition: color .2s; }
+.nav ul a:hover { color: var(--text); }
+.nav .btn { padding: 8px 16px; font-size: .9rem; }
+
+/* Equalizer bars */
+.eq { display: inline-flex; align-items: flex-end; gap: 3px; height: 16px; }
+.eq i { width: 3px; height: 100%; background: var(--cyan); border-radius: 2px; transform-origin: bottom; animation: eq 1s ease-in-out infinite; }
+.eq i:nth-child(2) { animation-delay: -.4s; } .eq i:nth-child(3) { animation-delay: -.7s; } .eq i:nth-child(4) { animation-delay: -.2s; }
+@keyframes eq { 0%,100% { transform: scaleY(.25); } 50% { transform: scaleY(1); } }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 56px; align-items: center; padding-block: 56px 40px; }
+.hero-photo { position: relative; max-width: 100%; }
+.hero-photo::before {
+  content: ""; position: absolute; inset: -12%; z-index: -1; border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--blue), var(--cyan), var(--brass), var(--blue));
+  filter: blur(60px); opacity: .45; animation: spin 14s linear infinite;
+}
+@keyframes spin { to { transform: rotate(1turn); } }
+.hero-photo .frame { border-radius: 28px; overflow: hidden; aspect-ratio: 1 / 1; max-width: 100%; border: 1px solid var(--rule); transform: rotate(-2deg); transition: transform .6s var(--ease); }
+.hero-photo:hover .frame { transform: rotate(0deg) scale(1.02); }
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+.badge {
+  position: absolute; right: -10px; bottom: 24px; display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; border-radius: 14px; background: rgba(10, 22, 44, .75); border: 1px solid var(--rule);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); font-size: .85rem; animation: float 5s ease-in-out infinite;
+}
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.hero-text { display: grid; gap: 22px; min-width: 0; }
+.hero h1 { font-size: var(--step-3); letter-spacing: -.02em; }
+.hero h1 .name {
+  background: linear-gradient(100deg, var(--text) 20%, #9fc2ff 50%, var(--text) 80%);
+  background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: shine 6s linear infinite;
+}
+@keyframes shine { to { background-position: -200% 0; } }
+.hero h1 .sub { display: block; color: var(--brass); font: 500 clamp(1.1rem, 2.6vw, 1.45rem) var(--body); letter-spacing: .02em; margin-top: 14px; }
+.rise { animation: rise .9s var(--ease) both; }
+.rise.d1 { animation-delay: .08s; } .rise.d2 { animation-delay: .18s; } .rise.d3 { animation-delay: .28s; } .rise.d4 { animation-delay: .38s; }
+@keyframes rise { from { opacity: .2; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn {
+  position: relative; display: inline-flex; align-items: center; gap: 8px; padding: 13px 22px; border-radius: 999px;
+  font: 600 1rem var(--body); text-decoration: none; border: 1px solid var(--brass); overflow: hidden;
+  background: var(--brass); color: var(--brass-ink); transition: transform .2s var(--ease), box-shadow .2s;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -10px rgba(226, 173, 79, .6); }
+.btn.ghost { background: transparent; color: var(--brass); }
+.btn.ghost:hover { background: rgba(226, 173, 79, .1); }
+.btn:focus-visible, .play:focus-visible, .nav a:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+.btn[aria-disabled="true"] { opacity: .45; pointer-events: none; }
+.btn svg { width: 18px; height: 18px; flex: none; }
+
+/* Ticker */
+.ticker { overflow: hidden; border-block: 1px solid var(--rule); padding-block: 14px; margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+.ticker-track { display: flex; gap: 40px; width: max-content; animation: marquee 28s linear infinite; font-family: var(--display); font-size: clamp(1.2rem, 3vw, 1.7rem); color: var(--muted); white-space: nowrap; }
+.ticker-track span::after { content: "✦"; color: var(--brass); margin-left: 40px; font-size: .7em; vertical-align: middle; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* Six-string divider; thickness grows from high E to low E */
+.strings { display: grid; gap: 7px; padding-block: 56px; }
+.strings i { display: block; height: var(--g); background: linear-gradient(90deg, transparent, var(--rule) 15%, rgba(160, 190, 240, .35) 50%, var(--rule) 85%, transparent); border-radius: 2px; }
+.strings.ring i { animation: pluck .9s ease-out; }
+.strings.ring i:nth-child(2) { animation-delay: .05s; } .strings.ring i:nth-child(3) { animation-delay: .1s; }
+.strings.ring i:nth-child(4) { animation-delay: .15s; } .strings.ring i:nth-child(5) { animation-delay: .2s; } .strings.ring i:nth-child(6) { animation-delay: .25s; }
+.strings i:nth-child(1) { --g: 1px; } .strings i:nth-child(2) { --g: 1.2px; } .strings i:nth-child(3) { --g: 1.6px; }
+.strings i:nth-child(4) { --g: 2px; }  .strings i:nth-child(5) { --g: 2.6px; } .strings i:nth-child(6) { --g: 3.2px; }
+@keyframes pluck { 0%,100% { transform: translateY(0) scaleY(1); } 20% { transform: translateY(-2px) scaleY(2.6); } 45% { transform: translateY(1.5px) scaleY(.7); } 70% { transform: translateY(-.6px) scaleY(1.4); } }
+
+/* Scroll reveal: only applied to blocks that start below the screen */
+.pre { opacity: .15; transform: translateY(28px); }
+.shown { opacity: 1; transform: none; transition: opacity .8s var(--ease), transform .8s var(--ease); }
+
+/* Teach cards */
+.teach { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.card {
+  position: relative; border-radius: 22px; overflow: hidden; display: grid; grid-template-rows: auto 1fr;
+  background: var(--panel); border: 1px solid var(--rule); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  transition: transform .4s var(--ease), border-color .4s, box-shadow .4s;
+}
+.card:hover { transform: translateY(-6px); border-color: rgba(63, 125, 255, .5); box-shadow: 0 24px 50px -24px rgba(63, 125, 255, .55); }
+.card-media { aspect-ratio: 4 / 3; max-width: 100%; overflow: hidden; background: var(--ground-2); }
+.card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+.card:hover .card-media img { transform: scale(1.06); }
+.card-body { padding: 22px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.chip { font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); }
+/* Harmonium keyboard drawn in CSS until a real photo arrives */
+.keys { position: relative; display: grid; place-items: center; background: linear-gradient(160deg, #1a2f55, var(--ground-2)); }
+.kb { position: absolute; left: 10%; right: 10%; bottom: 14%; height: 42%; display: flex; gap: 3px; }
+.kb span { flex: 1; background: var(--text); border-radius: 0 0 5px 5px; transition: background .2s; }
+.kb span:hover { background: #ffe2a6; }
+.kb b { position: absolute; top: 0; width: 6%; height: 60%; background: #0a1424; border-radius: 0 0 4px 4px; pointer-events: none; }
+.keys .todo { position: relative; z-index: 1; margin-bottom: 30%; background: rgba(10, 22, 44, .8); }
+
+/* About */
+.about { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: 40px; align-items: center; }
+.about-photo { position: relative; max-width: 100%; }
+.about-photo img { border-radius: 22px; filter: grayscale(1) contrast(1.05); transition: filter .8s var(--ease); }
+.about-photo:hover img { filter: grayscale(0); }
+.about-photo::after { content: ""; position: absolute; inset: 14px -14px -14px 14px; border: 1px solid var(--brass); border-radius: 22px; z-index: -1; opacity: .5; }
+.about-text { display: grid; gap: 16px; min-width: 0; }
+
+/* Videos */
+.videos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.video { aspect-ratio: 16 / 9; max-width: 100%; border-radius: 18px; overflow: hidden; background: var(--panel-solid); border: 1px solid var(--rule); position: relative; transition: transform .4s var(--ease); }
+.video:hover { transform: translateY(-4px); }
+.video iframe { width: 100%; height: 100%; border: 0; }
+.play { all: unset; cursor: pointer; position: absolute; inset: 0; }
+.play img { width: 100%; height: 100%; object-fit: cover; }
+.play::after, .video.empty::before {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 58px; height: 58px; margin: -29px 0 0 -29px; border-radius: 50%;
+  background: var(--brass) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 7l9 5-9 5z' fill='%231a1206'/%3E%3C/svg%3E") center / 28px no-repeat;
+  box-shadow: 0 0 0 0 rgba(226, 173, 79, .55); animation: pulse 2.2s infinite;
+}
+@keyframes pulse { 70% { box-shadow: 0 0 0 16px rgba(226, 173, 79, 0); } 100% { box-shadow: 0 0 0 0 rgba(226, 173, 79, 0); } }
+.video.empty { display: grid; align-content: end; justify-items: center; padding: 14px; color: var(--muted); font-size: .85rem; background: linear-gradient(160deg, #15294c, var(--ground-2)); }
+.video.empty::before { opacity: .35; animation: none; }
+
+/* Gallery */
+.gallery { display: grid; grid-template-columns: 1fr 1.4fr; grid-template-rows: auto auto; gap: 14px; }
+.gallery figure { margin: 0; overflow: hidden; border-radius: 18px; position: relative; }
+.gallery img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--ease); }
+.gallery figure:hover img { transform: scale(1.07); }
+.gallery .tall { grid-row: span 2; }
+
+/* Contact */
+.contact {
+  position: relative; overflow: hidden; border-radius: 28px; padding: clamp(24px, 5vw, 48px); display: grid; gap: 22px;
+  background: linear-gradient(135deg, rgba(63, 125, 255, .22), rgba(47, 211, 208, .08) 60%, transparent), var(--panel-solid);
+  border: 1px solid var(--rule);
+}
+.contact::after { content: ""; position: absolute; width: 380px; height: 380px; right: -120px; top: -160px; border-radius: 50%; background: radial-gradient(circle, rgba(226, 173, 79, .25), transparent 65%); pointer-events: none; }
+.contact dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 12px 24px; margin: 0; }
+.contact dt { color: var(--muted); }
+.contact dd { margin: 0; overflow-wrap: anywhere; }
+
+.todo { border: 1px dashed var(--muted); color: var(--muted); border-radius: 8px; padding: 6px 10px; font-size: .86rem; display: inline-block; }
+
+footer { padding-block: 56px 0; color: var(--muted); font-size: .85rem; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+.bar { display: none; }
+@media (max-width: 760px) {
+  .nav ul { display: none; }
+  .hero, .about, .teach { grid-template-columns: minmax(0, 1fr); }
+  .hero { gap: 36px; padding-block: 36px 24px; }
+  .badge { right: 8px; }
+  .videos { grid-template-columns: minmax(0, 1fr); }
+  .gallery { grid-template-columns: 1fr 1fr; }
+  .gallery .tall { grid-row: auto; grid-column: span 2; aspect-ratio: 4 / 5; }
+  .strings { padding-block: 40px; }
+  .about-photo::after { inset: 10px -8px -10px 10px; }
+  .bar {
+    display: flex; gap: 10px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+    padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+    background: rgba(10, 22, 44, .8); border-top: 1px solid var(--rule);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  }
+  .bar .btn { flex: 1; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .pre { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+<nav class="nav" aria-label="Main">
+  <a class="brand" href="#top">Rysul Islam <b>Depto</b></a>
+  <ul>
+    <li><a href="#teach">Lessons</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#videos">Videos</a></li>
+    <li><a href="#stage">On stage</a></li>
+  </ul>
+  <a class="btn" href="#contact">Book a lesson</a>
+</nav>
+
+<div class="wrap" id="top">
+  <header class="hero">
+    <div class="hero-photo rise">
+      <div class="frame"><img src="img/hero.webp" width="900" height="893" alt="Depto playing electric guitar on stage"></div>
+      <div class="badge"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Live stage player</div>
+    </div>
+    <div class="hero-text">
+      <p class="eyebrow rise d1"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Guitar · Harmonium</p>
+      <h1 class="rise d2"><span class="name">Rysul Islam Depto</span><span class="sub">Guitar and harmonium lessons</span></h1>
+      <p class="todo rise d3">To add: one line on who the lessons are for (levels, ages, area)</p>
+      <div class="actions rise d4" data-contact></div>
+    </div>
+  </header>
+</div>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Acoustic guitar</span><span>Electric guitar</span><span>Harmonium</span><span>Chords and rhythm</span><span>Lead and solos</span><span>Songs you love</span>
+    <span>Acoustic guitar</span><span>Electric guitar</span><span>Harmonium</span><span>Chords and rhythm</span><span>Lead and solos</span><span>Songs you love</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="strings" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <section id="teach" aria-labelledby="teach-h">
+    <div class="sec-head reveal"><p class="eyebrow">Lessons</p><h2 id="teach-h">What I teach</h2></div>
+    <div class="teach">
+      <article class="card reveal">
+        <div class="card-media"><img src="img/guitar.webp" width="900" height="675" alt="Depto playing a red electric guitar" loading="lazy"></div>
+        <div class="card-body">
+          <span class="chip">Strings</span>
+          <h3>Guitar</h3>
+          <p>Acoustic and electric guitar.</p>
+          <p class="todo">To add: levels taught, what a first lesson covers</p>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="card-media keys">
+          <div class="kb" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            <b style="left:4.2%"></b><b style="left:11.3%"></b><b style="left:25.6%"></b><b style="left:32.7%"></b><b style="left:39.8%"></b><b style="left:54.1%"></b><b style="left:61.2%"></b><b style="left:75.5%"></b><b style="left:82.6%"></b><b style="left:89.7%"></b>
+          </div>
+          <span class="todo">Harmonium photo needed</span>
+        </div>
+        <div class="card-body">
+          <span class="chip">Reeds &amp; keys</span>
+          <h3>Harmonium</h3>
+          <p>Harmonium for songs and classical practice.</p>
+          <p class="todo">To add: levels taught, what a first lesson covers</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <div class="strings" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <section class="about" id="about" aria-labelledby="about-h">
+    <div class="about-photo reveal"><img src="img/about.webp" width="800" height="600" alt="Depto practising guitar with headphones on" loading="lazy"></div>
+    <div class="about-text reveal">
+      <p class="eyebrow">About</p>
+      <h2 id="about-h">Hi, I'm Depto</h2>
+      <p class="todo">To add: 3–4 sentences from Depto — how long he has played, where he learned, bands and stages.</p>
+      <p class="todo">To add: where classes happen (his place, home visit, online) and on which days</p>
+    </div>
+  </section>
+
+  <div class="strings" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <section id="videos" aria-labelledby="videos-h">
+    <div class="sec-head reveal"><p class="eyebrow">Videos</p><h2 id="videos-h">Watch me play</h2></div>
+    <div class="videos reveal" data-videos></div>
+  </section>
+
+  <div class="strings" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <section id="stage" aria-labelledby="stage-h">
+    <div class="sec-head reveal"><p class="eyebrow">Gallery</p><h2 id="stage-h">On stage</h2></div>
+    <div class="gallery reveal">
+      <figure class="tall"><img src="img/stage1.webp" width="700" height="1050" alt="Depto with a green electric guitar on stage" loading="lazy"></figure>
+      <figure><img src="img/band.webp" width="900" height="600" alt="Depto's band performing at a university music fest" loading="lazy"></figure>
+      <figure><img src="img/stage2.webp" width="700" height="626" alt="Depto singing and playing guitar under green stage light" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <div class="strings" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <section class="contact reveal" id="contact" aria-labelledby="contact-h">
+    <p class="eyebrow"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Get in touch</p>
+    <h2 id="contact-h">Book a lesson</h2>
+    <dl data-details></dl>
+    <div class="actions" data-contact></div>
+  </section>
+
+  <footer><span>© 2026 Rysul Islam Depto</span><a href="#top">Back to top ↑</a></footer>
+</div>
+
+<nav class="bar" data-contact aria-label="Contact"></nav>
+
+<script>
+// ===== Edit these lines to update the site =====
+const SITE = {
+  phone: "",      // e.g. "+8801XXXXXXXXX"
+  whatsapp: "",   // digits only, e.g. "8801XXXXXXXXX"
+  email: "",
+  waText: "I saw your poster and want to take music lessons.",
+  videos: [],     // YouTube video IDs, e.g. ["dQw4w9WgXcQ", "abc123def45"]
+};
+// ================================================
+
+const icon = {
+  call: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>',
+  wa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>',
+};
+
+function contactButtons() {
+  const call = SITE.phone
+    ? `<a class="btn" href="tel:${SITE.phone}">${icon.call}Call</a>`
+    : `<span class="btn" aria-disabled="true">${icon.call}Call</span>`;
+  const wa = SITE.whatsapp
+    ? `<a class="btn ghost" href="https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(SITE.waText)}" target="_blank" rel="noopener">${icon.wa}WhatsApp</a>`
+    : `<span class="btn ghost" aria-disabled="true">${icon.wa}WhatsApp</span>`;
+  return call + wa;
+}
+document.querySelectorAll("[data-contact]").forEach(el => { el.innerHTML = contactButtons(); });
+
+const pending = '<span class="todo">Coming soon</span>';
+document.querySelector("[data-details]").innerHTML =
+  `<dt>Phone</dt><dd>${SITE.phone || pending}</dd>` +
+  `<dt>WhatsApp</dt><dd>${SITE.whatsapp ? "+" + SITE.whatsapp : pending}</dd>` +
+  `<dt>Email</dt><dd>${SITE.email ? `<a href="mailto:${SITE.email}">${SITE.email}</a>` : pending}</dd>`;
+
+// Videos: show only the thumbnail; the YouTube player loads after a tap.
+const vbox = document.querySelector("[data-videos]");
+if (SITE.videos.length) {
+  vbox.innerHTML = SITE.videos.map(id =>
+    `<div class="video"><button class="play" data-id="${id}" aria-label="Play video">` +
+    `<img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy"></button></div>`).join("");
+  vbox.addEventListener("click", e => {
+    const b = e.target.closest(".play");
+    if (!b) return;
+    b.parentElement.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${b.dataset.id}?autoplay=1&rel=0" title="YouTube video" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+  });
+} else {
+  vbox.innerHTML = [1, 2, 3].map(n => `<div class="video empty">Video ${n} · YouTube link needed</div>`).join("");
+}
+
+// Scroll effects: blocks below the screen slide in; strings vibrate when they appear.
+if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      const el = en.target;
+      if (el.classList.contains("strings")) {
+        el.classList.remove("ring"); void el.offsetWidth; el.classList.add("ring");
+      } else {
+        el.classList.add("shown"); el.classList.remove("pre"); io.unobserve(el);
+      }
+    });
+  }, { threshold: .15 });
+  document.querySelectorAll(".reveal").forEach(el => {
+    if (el.getBoundingClientRect().top > innerHeight) el.classList.add("pre");
+    io.observe(el);
+  });
+  document.querySelectorAll(".strings").forEach(el => io.observe(el));
+}
+</script>
+</body>
+</html>
