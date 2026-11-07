@@ -210,6 +210,16 @@ section { display: grid; gap: 28px; scroll-margin-top: 80px; }
 .contact dt { color: var(--muted); }
 .contact dd { margin: 0; overflow-wrap: anywhere; }
 
+/* Bilingual text: Bangla sits under the English in a softer colour */
+.bn { color: var(--muted); }
+:lang(bn) { line-height: 1.75; }
+/* Letter-spacing breaks up Bangla joined letters, so turn it off there */
+.where .bn b { letter-spacing: 0; font-size: .8rem; }
+.lead { display: grid; gap: 6px; }
+.lead p:first-child { font-size: 1.08rem; }
+.first { font-size: .92rem; color: var(--muted); padding-top: 12px; border-top: 1px solid var(--glass-edge); }
+.first b, .where b { display: block; color: var(--cyan); font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 2px; }
+.where { display: grid; gap: 8px; padding: 16px 18px; border-radius: 14px; background: rgba(255, 255, 255, .05); border: 1px solid var(--glass-edge); }
 .todo { border: 1px dashed var(--muted); color: var(--muted); border-radius: 8px; padding: 6px 10px; font-size: .86rem; display: inline-block; }
 
 footer { padding-block: 56px 0; color: var(--muted); font-size: .85rem; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
@@ -264,6 +274,10 @@ html::after {
   .nav { padding: 8px 8px 8px 18px; }
   .nav .btn { min-height: 44px; }
   .contact dd a, footer a { display: inline-block; padding-block: 10px; margin-block: -10px; }
+  /* Label above value, so the email address isn't split mid-word */
+  .contact dl { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .contact dt { font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; margin-top: 12px; }
+  .contact dt:first-child { margin-top: 0; }
   .videos { grid-template-columns: minmax(0, 1fr); }
   .gallery { grid-template-columns: 1fr 1fr; }
   .gallery .tall { grid-row: auto; grid-column: span 2; aspect-ratio: 4 / 5; }
@@ -321,7 +335,10 @@ html::after {
     <div class="hero-text">
       <p class="eyebrow rise d1"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Guitar · Harmonium</p>
       <h1 class="rise d2"><span class="name">Rysul Islam Depto</span><span class="sub">Guitar and harmonium lessons</span></h1>
-      <p class="todo rise d3">To add: one line on who the lessons are for (levels, ages, area)</p>
+      <div class="lead rise d3">
+        <p>Lessons for complete beginners and players who want to get better: kids, students and adults.</p>
+        <p class="bn" lang="bn">একদম নতুন থেকে যারা আরও ভালো বাজাতে চান, সব বয়সের জন্য গিটার ও হারমোনিয়াম শেখা।</p>
+      </div>
       <div class="actions rise d4" data-contact></div>
     </div>
   </header>
@@ -345,8 +362,9 @@ html::after {
         <div class="card-body">
           <span class="chip">Strings</span>
           <h3>Guitar</h3>
-          <p>Acoustic and electric guitar.</p>
-          <p class="todo">To add: levels taught, what a first lesson covers</p>
+          <p>Acoustic and electric guitar, from your first chords and strumming to lead lines and solos.</p>
+          <p class="bn" lang="bn">অ্যাকোস্টিক ও ইলেকট্রিক গিটার: প্রথম কর্ড আর স্ট্রামিং থেকে লিড ও সোলো পর্যন্ত।</p>
+          <p class="first"><b>First lesson</b> Holding the guitar, tuning it, and playing your first song.<br><span lang="bn">প্রথম ক্লাসে: গিটার ধরা, টিউন করা আর প্রথম গান বাজানো।</span></p>
         </div>
       </article>
       <article class="card reveal">
@@ -360,8 +378,9 @@ html::after {
         <div class="card-body">
           <span class="chip">Reeds &amp; keys</span>
           <h3>Harmonium</h3>
-          <p>Harmonium for songs and classical practice.</p>
-          <p class="todo">To add: levels taught, what a first lesson covers</p>
+          <p>Harmonium for songs and classical practice: sargam, basic ragas, and playing along with a singer.</p>
+          <p class="bn" lang="bn">গান ও শাস্ত্রীয় চর্চার জন্য হারমোনিয়াম: সারগাম, প্রাথমিক রাগ আর গানের সাথে বাজানো।</p>
+          <p class="first"><b>First lesson</b> Posture, working the bellows, sa-re-ga-ma, and a simple song.<br><span lang="bn">প্রথম ক্লাসে: বসার ভঙ্গি, বেলো চালানো, সা-রে-গা-মা আর একটি সহজ গান।</span></p>
         </div>
       </article>
     </div>
@@ -374,8 +393,12 @@ html::after {
     <div class="about-text reveal">
       <p class="eyebrow">About</p>
       <h2 id="about-h">Hi, I'm Depto</h2>
-      <p class="todo">To add: 3–4 sentences from Depto — how long he has played, where he learned, bands and stages.</p>
-      <p class="todo">To add: where classes happen (his place, home visit, online) and on which days</p>
+      <p>I'm a guitarist who plays live on stage with bands, and I play harmonium too. I teach with real songs from the first day, then build technique step by step, at a pace that suits you.</p>
+      <p class="bn" lang="bn">আমি গিটার বাজাই, ব্যান্ডের সাথে মঞ্চে পারফর্ম করি, পাশাপাশি হারমোনিয়ামও বাজাই। প্রথম দিন থেকেই আসল গান দিয়ে শেখাই, তারপর ধাপে ধাপে টেকনিক, আপনার গতিতে।</p>
+      <div class="where">
+        <p><b>Where &amp; when</b> At my place, at your home, or online. Days and times are flexible: message me on WhatsApp to set one up.</p>
+        <p class="bn" lang="bn"><b>কোথায় ও কখন</b> আমার কাছে, আপনার বাসায় অথবা অনলাইনে। দিন ও সময় আপনার সুবিধামতো, ঠিক করতে হোয়াটসঅ্যাপে মেসেজ দিন।</p>
+      </div>
     </div>
   </section>
 
@@ -414,9 +437,10 @@ html::after {
 <script>
 // ===== Edit these lines to update the site =====
 const SITE = {
-  phone: "",      // e.g. "+8801XXXXXXXXX"
-  whatsapp: "",   // digits only, e.g. "8801XXXXXXXXX"
-  email: "",
+  phone: "+8801773794724",   // main number, used by the Call button
+  phone2: "+8801674282186",  // second number, shown in the contact details
+  whatsapp: "8801773794724", // digits only
+  email: "rysulislam995@gmail.com",
   facebook: "https://www.facebook.com/rysulislam.depto21/",
   waText: "I saw your poster and want to take music lessons.",
   videos: [],     // YouTube video IDs, e.g. ["dQw4w9WgXcQ", "abc123def45"]
@@ -445,9 +469,13 @@ function contactButtons(inBar) {
 document.querySelectorAll("[data-contact]").forEach(el => { el.innerHTML = contactButtons(el.classList.contains("bar")); });
 
 const pending = '<span class="todo">Coming soon</span>';
+// "+8801773794724" -> "+880 1773-794724"
+const fmt = n => n.replace(/^\+?880(\d{4})(\d{6})$/, "+880 $1-$2");
+const tel = n => n ? `<a href="tel:${n}">${fmt(n)}</a>` : pending;
 document.querySelector("[data-details]").innerHTML =
-  `<dt>Phone</dt><dd>${SITE.phone || pending}</dd>` +
-  `<dt>WhatsApp</dt><dd>${SITE.whatsapp ? "+" + SITE.whatsapp : pending}</dd>` +
+  `<dt>Phone</dt><dd>${tel(SITE.phone)}</dd>` +
+  (SITE.phone2 ? `<dt>Other number</dt><dd>${tel(SITE.phone2)}</dd>` : "") +
+  `<dt>WhatsApp</dt><dd>${SITE.whatsapp ? `<a href="https://wa.me/${SITE.whatsapp}" target="_blank" rel="noopener">${fmt(SITE.whatsapp)}</a>` : pending}</dd>` +
   `<dt>Email</dt><dd>${SITE.email ? `<a href="mailto:${SITE.email}">${SITE.email}</a>` : pending}</dd>` +
   `<dt>Facebook</dt><dd>${SITE.facebook ? `<a href="${SITE.facebook}" target="_blank" rel="noopener">rysulislam.depto21</a>` : pending}</dd>`;
 
